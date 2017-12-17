@@ -144,7 +144,7 @@ void loop() {
 //     RcSwitch Hilfsmethoden
 // ---------------------------------------
 
-void switchWirelessOutlet(int number){
+void switchWirelessOutlet(long number){
   mySwitch.disableReceive();
   Serial.print("Schalte: ");
   Serial.println(number);
@@ -159,9 +159,8 @@ void switchWirelessOutlet(int number){
   if (numberStkIT < 0) numberStkIT = numberStkIT*(-1);
 
   if (number > 0){ 
-    
-    if (switchNr > 10000) {
-      mySwitch.send(switchNr , 24);
+    if (number > 10000) {
+      mySwitch.send(number , 24);
     } else if (number > 290  && number <= 306){      //Intertechno Logik
       mySwitch.switchOn('p',((((number-290)-1)/4)+1), numberStkIT);  
     } else if (number > 274){
@@ -339,9 +338,9 @@ void  runRawCmdWebpage(EthernetClient client, char* HttpFrame){
 void postRawCmd(EthernetClient client, char* anschluss){
   showHead(client);
     
-  client.println(F( "<h4> Alarm schalten</h4><br/>" ));
+  client.println(F( "<h4> schalten</h4><br/>" ));
 
-  switchWirelessOutlet(atoi(anschluss));
+  switchWirelessOutlet(atol(anschluss));
   
   showFooter(client);
 }
