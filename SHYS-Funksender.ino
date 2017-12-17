@@ -159,8 +159,10 @@ void switchWirelessOutlet(int number){
   if (numberStkIT < 0) numberStkIT = numberStkIT*(-1);
 
   if (number > 0){ 
-    //Intertechno Logik
-    if (number > 290  && number <= 306){
+    
+    if (switchNr > 10000) {
+      mySwitch.send(switchNr , 24);
+    } else if (number > 290  && number <= 306){      //Intertechno Logik
       mySwitch.switchOn('p',((((number-290)-1)/4)+1), numberStkIT);  
     } else if (number > 274){
       mySwitch.switchOn('o',((((number-274)-1)/4)+1), numberStkIT);  
